@@ -1,13 +1,17 @@
+import processing.serial.*;
+import cc.arduino.*;
+Arduino arduino;
+
 void setup() {
   //size
 size(400,400);
-noStroke();
-background(255,255,255);
+noStroke();  
+  arduino = new Arduino(this, Arduino.list()[1], 57600);
 }
 
-
-
 void draw() {
+int y = arduino.analogRead(5);
+int x = (235-y);
 //colors
 color grey = color(169,169,169);
 color pink = color(255,204,229);
@@ -16,6 +20,22 @@ color medgrey = color(150,150,150);
 color darkergrey = color(135,135,135);
 color darkgrey = color(187,183,213);
 color black = color(0,0,0);
+
+fill(black);
+rect(0, 0, 400, 400);
+
+//ears
+noStroke();
+fill(darkergrey);
+ellipse (275-(x*0.06),50+(x*0.06),90,90);
+fill(darkergrey);
+ellipse (125+(x*0.06),50+(x*0.06),90,90);
+
+//earliner
+fill(pink);
+ellipse (275-(x*0.06),50+(x*0.06),75,75);
+fill(pink);
+ellipse(125+(x*0.06),50+(x*0.06),75,75);
 
 //arms
 noStroke();
@@ -37,27 +57,18 @@ fill(medgrey);
 ellipse(200,245,150,175);
 
 
-//ears
-fill(darkergrey);
-ellipse (275,50,90,90);
-fill(darkergrey);
-ellipse (125,50,90,90);
-
-//earliner
-fill(pink);
-ellipse (275,50,75,75);
-fill(pink);
-ellipse(125,50,75,75);
 
 //head
-fill(grey);
+fill(169+(x*.3),169+(x*.099),169+(x*0.16));
 ellipse(200,100,160,140);
 
 //eyes
 fill(black);
-ellipse(175,85,15,15);
+ellipse(175+(x)*0.05,85+(x)*0.05,20,20);
 fill(black);
-ellipse(225,85,15,15);
+ellipse(225-(x)*0.05,85+(x)*0.05,20,20);
+
+System.out.println(x);
 
 //nosecircle
 fill(darkgrey);
@@ -80,5 +91,3 @@ line(185,120,110,100);
 
 
 }
-
-
